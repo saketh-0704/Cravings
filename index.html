@@ -1452,7 +1452,7 @@
         function renderReviews() {
             const reviewsGrid = document.getElementById('reviewsGrid');
             reviewsGrid.innerHTML = reviews.map(review => `
-                <div class="review-card fade-in">
+                <div class="review-card fade-in visible">
                     <div class="review-stars">${'★'.repeat(review.stars)}</div>
                     <div class="review-quote">"${review.quote}"</div>
                     <div class="review-author">— ${review.author}</div>
