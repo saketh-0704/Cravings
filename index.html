@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cravings - Cloud Kitchen | The Taste of Happiness!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700;900&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -13,71 +14,79 @@
         }
 
         :root {
-            --bg-dark: #1A0D05;
-            --bg-card: #2A1408;
-            --accent: #C8773A;
-            --accent-light: #E8B84B;
-            --text-light: #FDF6EC;
-            --text-muted: #BFA185;
-            --gradient-amber: linear-gradient(135deg, #C8773A, #E8B84B);
+            --primary-dark: #120800;
+            --secondary-dark: #1c0e04;
+            --card-dark: #1f0f05;
+            --accent: #c8773a;
+            --gold: #e8b84b;
+            --text-light: #fdf6ec;
+            --text-muted: #9a7560;
+            --border-color: rgba(200, 119, 58, 0.2);
         }
 
         html {
             scroll-behavior: smooth;
+            scrollbar-color: var(--gold) var(--primary-dark);
+            scrollbar-width: thin;
         }
 
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: var(--bg-dark);
+            font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--primary-dark);
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* ==================== UTILITIES ==================== */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* ==================== NAVIGATION ==================== */
+        /* ==================== NAVBAR ==================== */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(26, 13, 5, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(200, 119, 58, 0.2);
+            background: rgba(12, 5, 0, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
             z-index: 1000;
             padding: 1rem 0;
+            display: flex;
+            justify-content: center;
         }
 
         .nav-container {
+            width: 100%;
+            max-width: 1200px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 2rem;
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-svg {
+            width: 46px;
+            height: 46px;
+        }
+
+        .wordmark {
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--accent-light);
+            background: linear-gradient(135deg, var(--gold), #f5d76e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             letter-spacing: 2px;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2.5rem;
+            gap: 2rem;
             align-items: center;
         }
 
@@ -86,10 +95,26 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: var(--accent-light);
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .call-btn {
@@ -99,14 +124,16 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
             border: 2px solid var(--accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .call-btn:hover {
             background: transparent;
-            border-color: var(--accent-light);
-            color: var(--accent-light);
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
         }
 
         .menu-toggle {
@@ -127,9 +154,10 @@
         /* ==================== HERO SECTION ==================== */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, #1A0D05 0%, #2A1408 100%);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--card-dark) 100%);
             position: relative;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
@@ -140,38 +168,22 @@
         .hero::before {
             content: '';
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(232, 184, 75, 0.15) 0%, transparent 70%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(232, 184, 75, 0.1) 0%, transparent 70%);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            animation: floatGlow 6s ease-in-out infinite;
+            animation: floatGlow 8s ease-in-out infinite;
             z-index: 1;
         }
 
         .hero::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background-image: 
-                repeating-linear-gradient(
-                    90deg,
-                    rgba(255, 255, 255, 0.02),
-                    rgba(255, 255, 255, 0.02) 1px,
-                    transparent 1px,
-                    transparent 2px
-                ),
-                repeating-linear-gradient(
-                    0deg,
-                    rgba(255, 255, 255, 0.02),
-                    rgba(255, 255, 255, 0.02) 1px,
-                    transparent 1px,
-                    transparent 2px
-                );
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="2"/><feColorMatrix type="saturate" values="0.3"/></filter><rect width="100" height="100" fill="%23000" filter="url(%23noise)" opacity="0.03"/></svg>');
             pointer-events: none;
             z-index: 2;
         }
@@ -179,55 +191,56 @@
         .hero-content {
             position: relative;
             z-index: 3;
-            animation: fadeUp 1s ease-out;
         }
 
-        .hero-tag {
-            color: var(--accent-light);
+        .logo-hero {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 2rem;
+            animation: fadeUp 0.8s ease-out;
+            filter: drop-shadow(0 0 20px rgba(232, 184, 75, 0.5));
+        }
+
+        .hero-eyebrow {
+            color: var(--gold);
             font-size: 0.95rem;
             font-weight: 600;
             letter-spacing: 2px;
             margin-bottom: 1rem;
             text-transform: uppercase;
+            animation: fadeUp 0.8s ease-out 0.1s backwards;
         }
 
         .hero-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
             font-size: 4.5rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
             line-height: 1.2;
-            color: var(--text-light);
+            animation: fadeUp 0.8s ease-out 0.2s backwards;
         }
 
         .hero-title .gold {
-            color: var(--accent-light);
+            color: var(--gold);
             font-style: italic;
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto 2rem;
             line-height: 1.8;
-        }
-
-        .hero-rating {
-            margin-bottom: 2.5rem;
-            font-size: 1.1rem;
-        }
-
-        .hero-rating .stars {
-            color: #FFD700;
-            margin-right: 0.5rem;
+            animation: fadeUp 0.8s ease-out 0.3s backwards;
         }
 
         .hero-cta {
             display: flex;
             gap: 1rem;
             justify-content: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+            animation: fadeUp 0.8s ease-out 0.4s backwards;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -243,61 +256,50 @@
         }
 
         .btn-primary {
-            background: var(--gradient-amber);
+            background: var(--accent);
             color: white;
-            border: 2px solid var(--accent-light);
+            border: 2px solid var(--gold);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(232, 184, 75, 0.3);
+            box-shadow: 0 10px 30px rgba(232, 184, 75, 0.3);
         }
 
         .btn-outline {
             background: transparent;
-            color: var(--accent-light);
-            border: 2px solid var(--accent-light);
+            color: var(--gold);
+            border: 2px solid var(--gold);
         }
 
         .btn-outline:hover {
-            background: var(--accent-light);
-            color: var(--bg-dark);
+            background: var(--gold);
+            color: var(--primary-dark);
             transform: translateY(-3px);
         }
 
-        .hero-emojis {
+
+
+        .emoji-float {
             position: absolute;
             font-size: 3rem;
-            opacity: 0.15;
-            z-index: 0;
+            opacity: 0.1;
+            animation: bob 6s ease-in-out infinite;
         }
 
-        .emoji1 {
-            top: 15%;
-            left: 10%;
-            animation: bob 4s ease-in-out infinite;
-        }
-
-        .emoji2 {
-            top: 60%;
-            right: 15%;
-            animation: bob 5s ease-in-out infinite 0.5s;
-        }
-
-        .emoji3 {
-            bottom: 20%;
-            left: 20%;
-            animation: bob 6s ease-in-out infinite 1s;
-        }
+        .emoji-float:nth-child(1) { right: 5%; top: 20%; animation-delay: 0s; }
+        .emoji-float:nth-child(2) { right: 8%; top: 40%; animation-delay: 0.5s; }
+        .emoji-float:nth-child(3) { right: 3%; top: 60%; animation-delay: 1s; }
+        .emoji-float:nth-child(4) { left: 5%; top: 30%; animation-delay: 1.5s; }
 
         @keyframes bob {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
         }
 
         @keyframes floatGlow {
-            0%, 100% { opacity: 0.15; }
-            50% { opacity: 0.25; }
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.2; }
         }
 
         @keyframes fadeUp {
@@ -311,12 +313,12 @@
             }
         }
 
-        /* ==================== STATS STRIP ==================== */
+        /* ==================== STATS SECTION ==================== */
         .stats {
-            background-color: #2A1408;
+            background: linear-gradient(90deg, var(--secondary-dark) 0%, var(--card-dark) 50%, var(--secondary-dark) 100%);
             padding: 4rem 2rem;
-            border-top: 1px solid rgba(200, 119, 58, 0.2);
-            border-bottom: 1px solid rgba(200, 119, 58, 0.2);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .stats-grid {
@@ -329,7 +331,11 @@
         }
 
         .stat-item {
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
             animation: slideUp 0.8s ease-out backwards;
+            transition: all 0.3s ease;
         }
 
         .stat-item:nth-child(1) { animation-delay: 0.1s; }
@@ -337,10 +343,15 @@
         .stat-item:nth-child(3) { animation-delay: 0.3s; }
         .stat-item:nth-child(4) { animation-delay: 0.4s; }
 
+        .stat-item:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -349,35 +360,37 @@
         }
 
         .stat-number {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 2.8rem;
             font-weight: 700;
-            color: var(--accent-light);
+            color: var(--gold);
             margin-bottom: 0.5rem;
         }
 
         .stat-label {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         /* ==================== MENU SECTION ==================== */
         .menu-section {
-            padding: 6rem 2rem;
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 3.5rem;
             text-align: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             color: var(--text-light);
         }
 
         .section-title .accent {
-            color: var(--accent-light);
+            color: var(--gold);
         }
 
         .section-subtitle {
@@ -387,13 +400,44 @@
             font-size: 1.1rem;
         }
 
+        .featured-banner {
+            background: linear-gradient(135deg, rgba(200, 119, 58, 0.2) 0%, rgba(232, 184, 75, 0.1) 100%);
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .featured-item-name {
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .featured-price {
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        #menuContent {
+            display: block;
+            width: 100%;
+            min-height: 400px;
+        }
+
         .menu-tabs {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 1rem;
             margin-bottom: 3rem;
-            border-bottom: 1px solid rgba(200, 119, 58, 0.2);
+            border-bottom: 2px solid var(--gold);
             padding-bottom: 2rem;
         }
 
@@ -404,61 +448,49 @@
             color: var(--text-light);
             cursor: pointer;
             border-radius: 30px;
-            transition: all 0.3s ease;
             font-weight: 600;
+            transition: all 0.3s ease;
             font-size: 0.95rem;
         }
 
         .menu-tab:hover {
-            border-color: var(--accent-light);
-            color: var(--accent-light);
+            border-color: var(--gold);
+            color: var(--gold);
         }
 
         .menu-tab.active {
-            background: var(--gradient-amber);
-            border-color: var(--accent-light);
+            background: var(--accent);
+            border-color: var(--gold);
             color: white;
         }
 
-        .menu-items {
+        .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
         }
 
         .menu-item {
-            background: var(--bg-card);
+            background: var(--card-dark);
             padding: 1.5rem;
-            border-radius: 15px;
-            border: 1px solid rgba(200, 119, 58, 0.2);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
             animation: fadeUp 0.6s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .menu-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(232, 184, 75, 0.1), transparent);
-            transition: left 0.5s ease;
+            cursor: pointer;
         }
 
         .menu-item:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent-light);
-            box-shadow: 0 15px 40px rgba(200, 119, 58, 0.15), inset 0 0 30px rgba(232, 184, 75, 0.05);
+            transform: translateY(-3px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(232, 184, 75, 0.15);
         }
 
-        .menu-item:hover::before {
-            left: 100%;
+        .menu-item.hidden {
+            display: none;
         }
 
-        .menu-item-header {
+        .menu-item-head {
             display: flex;
             justify-content: space-between;
             align-items: start;
@@ -466,12 +498,11 @@
         }
 
         .menu-item-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-light);
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.05rem;
         }
 
         .veg-dot {
@@ -481,38 +512,38 @@
             display: inline-block;
         }
 
-        .veg-dot.veg {
-            background: #05B800;
+        .veg {
+            background: #2ecc71;
         }
 
-        .veg-dot.non-veg {
-            background: #DC143C;
+        .non-veg {
+            background: #e74c3c;
         }
 
-        .menu-item-price {
-            font-family: 'Playfair Display', serif;
+        .menu-price {
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
             font-size: 1.3rem;
-            color: var(--accent-light);
+            color: var(--gold);
             font-weight: 700;
         }
 
-        .menu-item-desc {
+        .menu-desc {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
         }
 
-        .menu-item-badge {
+        .menu-badge {
             display: inline-block;
             background: rgba(232, 184, 75, 0.2);
-            color: var(--accent-light);
+            color: var(--gold);
             padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            border: 1px solid var(--accent-light);
+            border: 1px solid var(--gold);
         }
 
         .tab-content {
@@ -520,26 +551,27 @@
         }
 
         .tab-content.active {
-            display: block;
-            animation: fadeUp 0.5s ease-out;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
-        /* ==================== CHEF'S SPECIALS ==================== */
+        /* ==================== SPECIALS SECTION ==================== */
         .specials-section {
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, rgba(26, 13, 5, 0.8) 0%, rgba(42, 20, 8, 0.8) 100%);
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--card-dark) 100%);
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .specials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .special-card {
-            background: linear-gradient(135deg, var(--bg-card), #1A0D05);
+            background: linear-gradient(135deg, rgba(200, 119, 58, 0.1), rgba(232, 184, 75, 0.05));
             padding: 2rem;
             border-radius: 15px;
             border: 2px solid var(--accent);
@@ -550,17 +582,23 @@
 
         .special-card:hover {
             transform: translateY(-10px);
-            border-color: var(--accent-light);
-            box-shadow: 0 20px 50px rgba(232, 184, 75, 0.2);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(232, 184, 75, 0.2);
         }
 
         .special-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .special-name {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 1rem;
@@ -568,86 +606,81 @@
         }
 
         .special-price {
-            font-size: 1.5rem;
-            color: var(--accent-light);
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 2rem;
+            color: var(--gold);
             font-weight: 700;
+            margin-bottom: 0.5rem;
         }
 
-        /* ==================== REVIEWS SECTION ==================== */
-        .reviews-section {
-            padding: 6rem 2rem;
-            background-color: var(--text-light);
-            color: var(--bg-dark);
+        .special-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .reviews-section .section-title {
-            color: var(--bg-dark);
+        /* ==================== CTA BANNER ==================== */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--gold) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 5rem 0;
         }
 
-        .reviews-section .section-subtitle {
-            color: #666;
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .review-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 5px solid var(--accent);
-            box-shadow: 0 5px 20px rgba(26, 13, 5, 0.1);
-            transition: all 0.3s ease;
-            animation: fadeUp 0.6s ease-out;
-        }
-
-        .review-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(26, 13, 5, 0.15);
-        }
-
-        .review-stars {
-            color: #FFD700;
-            font-size: 1rem;
+        .cta-banner h2 {
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
+            color: white;
         }
 
-        .review-quote {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.05rem;
-            font-style: italic;
-            color: #333;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
+        .cta-banner p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
         }
 
-        .review-author {
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-buttons a {
+            background: white;
+            color: var(--accent);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
             font-weight: 700;
-            color: var(--bg-dark);
-            margin-bottom: 0.3rem;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
 
-        .review-date {
-            color: #999;
-            font-size: 0.9rem;
+        .cta-buttons a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         /* ==================== CONTACT SECTION ==================== */
         .contact-section {
-            padding: 6rem 2rem;
-        }
-
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
         }
 
         .contact-info {
@@ -658,164 +691,134 @@
 
         .contact-item {
             display: flex;
-            align-items: flex-start;
             gap: 1.5rem;
-            animation: fadeUp 0.6s ease-out;
+            padding: 1.5rem;
+            background: var(--card-dark);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: var(--gold);
+            transform: translateX(5px);
         }
 
         .contact-icon {
-            font-size: 1.5rem;
-            color: var(--accent-light);
-            min-width: 30px;
-            margin-top: 0.2rem;
+            font-size: 1.8rem;
+            min-width: 40px;
+            color: var(--gold);
         }
 
-        .contact-item-text {
-            flex: 1;
-        }
-
-        .contact-item-label {
-            color: var(--accent-light);
-            font-weight: 600;
+        .contact-text h3 {
+            color: var(--gold);
             margin-bottom: 0.3rem;
+            font-weight: 700;
         }
 
-        .contact-item-value {
-            color: var(--text-light);
-            line-height: 1.6;
+        .contact-text p {
+            color: var(--text-muted);
         }
 
-        .contact-item-value a {
-            color: var(--accent-light);
+        .contact-text a {
+            color: var(--gold);
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
-        .contact-item-value a:hover {
-            text-decoration: underline;
-        }
-
-        .enquiry-form {
-            background: var(--bg-card);
-            padding: 2.5rem;
-            border-radius: 15px;
-            border: 1px solid rgba(200, 119, 58, 0.2);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
+        .contact-text a:hover {
             color: var(--text-light);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(200, 119, 58, 0.3);
-            border-radius: 8px;
-            color: var(--text-light);
-            font-family: 'Lato', sans-serif;
-            transition: all 0.3s ease;
-            resize: vertical;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-light);
-            background: rgba(232, 184, 75, 0.05);
-            box-shadow: 0 0 15px rgba(232, 184, 75, 0.1);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-        }
-
-        .form-btn {
-            width: 100%;
-            padding: 1rem;
-            background: var(--gradient-amber);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .form-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(232, 184, 75, 0.3);
         }
 
         /* ==================== FOOTER ==================== */
         footer {
-            background: #0F0704;
-            border-top: 1px solid rgba(200, 119, 58, 0.2);
-            padding: 3rem 2rem 1rem;
+            background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--card-dark) 100%);
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 2rem 1.5rem;
         }
 
         .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
             max-width: 1200px;
             margin: 0 auto 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            text-align: center;
         }
 
-        .footer-brand {
+        .footer-col {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            align-items: center;
         }
 
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--accent-light);
-            font-weight: 700;
-        }
-
-        .footer-tagline {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .footer-social {
+        .footer-logo-section {
             display: flex;
-            gap: 1.5rem;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
         }
 
-        .footer-social a {
-            color: var(--accent-light);
+        .logo-footer {
+            width: 52px;
+            height: 52px;
+        }
+
+        .footer-wordmark {
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold), #f5d76e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .social-links a {
+            color: var(--gold);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
 
-        .footer-social a:hover {
+        .social-links a:hover {
             color: var(--text-light);
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(200, 119, 58, 0.2);
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+        }
+
+        /* ==================== SCROLL ANIMATION ==================== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
         /* ==================== MOBILE RESPONSIVE ==================== */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .nav-links {
                 display: none;
                 position: absolute;
@@ -823,10 +826,11 @@
                 left: 0;
                 width: 100%;
                 flex-direction: column;
-                background: rgba(26, 13, 5, 0.98);
+                background: rgba(12, 5, 0, 0.98);
                 gap: 0;
                 padding: 2rem;
-                border-bottom: 1px solid rgba(200, 119, 58, 0.2);
+                border-bottom: 1px solid var(--border-color);
+                z-index: 999;
             }
 
             .nav-links.active {
@@ -834,7 +838,7 @@
             }
 
             .nav-links li {
-                border-bottom: 1px solid rgba(200, 119, 58, 0.2);
+                border-bottom: 1px solid var(--border-color);
                 padding: 1rem 0;
             }
 
@@ -856,9 +860,7 @@
 
             .hero {
                 margin-top: 60px;
-                height: auto;
-                min-height: 80vh;
-                padding: 2rem 0;
+                padding: 2rem 1rem;
             }
 
             .hero-title {
@@ -871,56 +873,30 @@
 
             .hero-cta {
                 flex-direction: column;
-                gap: 1rem;
             }
 
             .btn {
                 width: 100%;
-                text-align: center;
-            }
-
-            .hero-emojis {
-                font-size: 2rem;
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
-            .menu-tabs {
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding-bottom: 1rem;
-            }
-
-            .contact-content {
+            .contact-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+            }
+
+            .featured-banner {
+                flex-direction: column;
+                text-align: center;
             }
 
             .footer-content {
                 grid-template-columns: 1fr;
             }
 
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 1.3rem;
-            }
-
-            .hero-title {
-                font-size: 1.8rem;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-
-            .menu-items {
+            .menu-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -931,569 +907,323 @@
             .reviews-grid {
                 grid-template-columns: 1fr;
             }
-
-            .stat-number {
-                font-size: 2rem;
-            }
-
-            .menu-tabs {
-                gap: 0.5rem;
-            }
-
-            .menu-tab {
-                padding: 0.6rem 1rem;
-                font-size: 0.85rem;
-            }
         }
 
-        /* ==================== SCROLL ANIMATION ==================== */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
+        @media (max-width: 600px) {
+            .wordmark {
+                font-size: 1.4rem;
+            }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+            .logo-svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-buttons a {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- ==================== NAVIGATION ==================== -->
+    <!-- ==================== NAVBAR ==================== -->
     <nav>
         <div class="nav-container">
-            <div class="logo">Cravings</div>
+            <div class="logo-section">
+                <img src="logo.png" alt="Cravings Logo" class="logo-svg">
+                <div class="wordmark">Cravings</div>
+            </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#specials">Specials</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="tel:+917636050350" class="call-btn">📞 Call Now</a></li>
             </ul>
             <div class="menu-toggle" id="menuToggle">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
+            <a href="tel:+917636050350" class="call-btn">📞 Call to Order</a>
         </div>
     </nav>
 
     <!-- ==================== HERO SECTION ==================== -->
     <section class="hero">
-        <div class="hero-emojis emoji1">🍕</div>
-        <div class="hero-emojis emoji2">🍔</div>
-        <div class="hero-emojis emoji3">🍰</div>
-        <div class="hero-content">
-            <div class="hero-tag">Cloud Kitchen · Ramanthapur, Hyderabad</div>
-            <h1 class="hero-title">The Last Bite <span class="gold">You'll</span> Ever Crave</h1>
-            <p class="hero-subtitle">Handcrafted pizzas, loaded burgers, dreamy desserts & chilled shakes — made fresh, delivered with love.</p>
-            <div class="hero-rating">
-                <span class="stars">★★★★★</span>
-                <span>5.0 · 31 happy customers</span>
-            </div>
-            <div class="hero-cta">
-                <a href="#menu" class="btn btn-primary">Explore Menu</a>
-                <a href="#contact" class="btn btn-outline">Make an Enquiry</a>
-            </div>
+        <img src="logo.png" alt="Cravings Logo" class="logo-hero">
+
+        <div class="hero-eyebrow">Cloud Kitchen · Ramanthapur, Hyderabad</div>
+        <h1 class="hero-title">The Taste of <span class="gold">Happiness!</span></h1>
+        <p class="hero-subtitle">Handcrafted pizzas, loaded burgers, signature kunafas, dream cakes & chilled shakes — made fresh, served with love.</p>
+
+        <div class="hero-cta">
+            <a href="#menu" class="btn btn-primary">Explore Full Menu</a>
         </div>
+
+        <div class="emoji-float">🍕</div>
+        <div class="emoji-float">🍔</div>
+        <div class="emoji-float">🧇</div>
+        <div class="emoji-float">🍰</div>
     </section>
 
-    <!-- ==================== STATS STRIP ==================== -->
+    <!-- ==================== STATS SECTION ==================== -->
     <section class="stats">
         <div class="stats-grid">
-            <div class="stat-item">
+            <div class="stat-item fade-in">
                 <div class="stat-number">⭐ 5.0</div>
                 <div class="stat-label">Google Rating</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item fade-in">
                 <div class="stat-number">31+</div>
-                <div class="stat-label">5-Star Reviews</div>
+                <div class="stat-label">Happy Reviews</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">₹200</div>
-                <div class="stat-label">Meals Starting At</div>
+            <div class="stat-item fade-in">
+                <div class="stat-number">₹149</div>
+                <div class="stat-label">Starting Price</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">10 min</div>
+            <div class="stat-item fade-in">
+                <div class="stat-number">&lt;10m</div>
                 <div class="stat-label">Average Wait Time</div>
             </div>
         </div>
     </section>
 
     <!-- ==================== MENU SECTION ==================== -->
-    <section id="menu" class="menu-section">
-        <div style="text-align: center; margin-bottom: 3rem;">
-            <img src="logo.png" alt="Cravings Logo" style="max-width: 150px; height: auto;">
-        </div>
-        
+    <section class="menu-section" id="menu">
         <h2 class="section-title">Our <span class="accent">Menu</span></h2>
-        <p class="section-subtitle">Carefully crafted items designed to satisfy every craving</p>
-        
+        <p class="section-subtitle">Carefully curated dishes handcrafted with love</p>
+
         <div class="menu-tabs" id="menuTabs"></div>
         <div id="menuContent"></div>
     </section>
 
-    <!-- ==================== CHEF'S SPECIALS ==================== -->
-    <section id="specials" class="specials-section">
-        <div style="text-align: center; margin-bottom: 3rem;">
-            <img src="logo.png" alt="Cravings Logo" style="max-width: 150px; height: auto;">
-        </div>
-        
+    <!-- ==================== SPECIALS SECTION ==================== -->
+    <section class="specials-section" id="specials">
         <h2 class="section-title">Chef's <span class="accent">Specials</span></h2>
-        <p class="section-subtitle" style="color: var(--text-muted); margin-bottom: 3rem;">Our signature creations you must try</p>
-        
+        <p class="section-subtitle">Don't miss our signature creations</p>
         <div class="specials-grid" id="specialsGrid"></div>
     </section>
 
-    <!-- ==================== REVIEWS SECTION ==================== -->
-    <section id="reviews" class="reviews-section">
-        <h2 class="section-title">What Our <span style="color: var(--accent);">Customers</span> Say</h2>
-        <p class="section-subtitle" style="color: #666;">Join thousands of happy customers</p>
-        
-        <div class="reviews-grid" id="reviewsGrid"></div>
-    </section>
-
-    <!-- ==================== CONTACT SECTION ==================== -->
-    <section id="contact" class="contact-section">
-        <h2 class="section-title">Get in <span class="accent">Touch</span></h2>
-        <p class="section-subtitle">We'd love to hear from you. Reach out anytime!</p>
-        
-        <div class="contact-content">
-            <div class="contact-info" id="contactInfo"></div>
-            <form class="enquiry-form" id="enquiryForm">
-                <div class="form-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit" class="form-btn">Send Enquiry</button>
-            </form>
+    <!-- ==================== CTA BANNER ==================== -->
+    <section class="cta-banner">
+        <h2>Hungry? Order Right Now.</h2>
+        <p>Free delivery within 3KM · Also available on Swiggy & Zomato</p>
+        <div class="cta-buttons">
+            <a href="https://wa.me/919705050930" target="_blank">💬 WhatsApp Order</a>
+            <a href="tel:+917636050350">📞 Call Us Now</a>
         </div>
     </section>
+
+
 
     <!-- ==================== FOOTER ==================== -->
     <footer>
         <div class="footer-content">
-            <div class="footer-brand">
-                <div class="footer-logo">Cravings</div>
-                <div class="footer-tagline">"The Taste of Happiness!"</div>
+            <div class="footer-col">
+                <div class="footer-logo-section">
+                    <img src="logo.png" alt="Cravings Logo" class="logo-footer">
+                    <div>
+                        <div class="footer-wordmark">Cravings</div>
+                        <div class="tagline">"The Taste of Happiness!"</div>
+                    </div>
+                </div>
             </div>
-            <div class="footer-social">
-                <a href="https://instagram.com/cravings_hyd" target="_blank">📸 @cravings_hyd</a>
-                <a href="https://swiggy.com" target="_blank">🍕 Swiggy</a>
-                <a href="https://zomato.com" target="_blank">🍽️ Zomato</a>
+
+            <div class="footer-col">
+                <h3 style="color: var(--gold); margin-bottom: 1rem;">Contact</h3>
+                <p>📞 +91 76360 50350</p>
+                <p>💬 WhatsApp: +91 97050 50930</p>
+                <p style="margin-top: 0.5rem; margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.75rem;">Party orders undertaken</p>
+
+                <h3 style="color: var(--gold); margin-bottom: 1rem;">Location</h3>
+                <p style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.85rem;">📍 3-12-30/A, Ganesh Nagar, Ramanthapur, Hyderabad – 500013</p>
+            </div>
+
+            <div class="footer-col">
+                <h3 style="color: var(--gold); margin-bottom: 1rem;">Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://instagram.com/cravings_hyd" target="_blank">📸 Instagram</a>
+                    <a href="https://swiggy.com" target="_blank">🍕 Swiggy</a>
+                    <a href="https://zomato.com" target="_blank">🍽️ Zomato</a>
+                    <a href="https://maps.app.goo.gl/e5FdrKzZY6149ZUS6" target="_blank">📍Maps</a>
+                </div>
             </div>
         </div>
+
         <div class="footer-bottom">
-            <p>&copy; 2026 Cravings Cloud Kitchen. All rights reserved. Made with ❤️ in Hyderabad.</p>
+            <p>&copy; 2026 Cravings Cloud Kitchen. All rights reserved. | Made with ❤️ in Hyderabad</p>
         </div>
     </footer>
 
     <script>
         // ==================== MENU DATA ==================== 
         const menuData = {
-            'Waffle Bites': {
-                items: [
-                    { name: 'Belgian Milk', price: 199, veg: true, desc: 'Crispy waffle bite' },
-                    { name: 'Belgian White', price: 199, veg: true, desc: 'White chocolate goodness' },
-                    { name: 'Kinder Chocolate', price: 199, veg: true, desc: 'Kinder chocolate layers' },
-                    { name: 'Lotus Biscoff', price: 229, veg: true, desc: 'Lotus flavor delight', badge: 'Fan Fav' },
-                    { name: 'Triple Chocolate', price: 229, veg: true, desc: 'Triple chocolate layers' },
-                    { name: 'Cravings Special', price: 249, veg: true, desc: 'Our signature creation', badge: 'Premium' }
-                ]
-            },
-            'Waffle': {
-                items: [
-                    { name: 'Belgian Milk', price: 199, veg: true, desc: 'Crispy waffle bite' },
-                    { name: 'Belgian White', price: 199, veg: true, desc: 'White chocolate goodness' },
-                    { name: 'Kinder Chocolate', price: 199, veg: true, desc: 'Kinder chocolate layers' },
-                    { name: 'Lotus Biscoff', price: 229, veg: true, desc: 'Lotus flavor delight', badge: 'Fan Fav' },
-                    { name: 'Triple Chocolate', price: 229, veg: true, desc: 'Triple chocolate layers' },
-                    { name: 'Cravings Special', price: 249, veg: true, desc: 'Our signature creation', badge: 'Premium' }
-                ]
-            },
-            'Mini Pancake': {
-                items: [
-                    { name: 'Belgian Milk', price: 199, veg: true, desc: 'Fluffy pancake' },
-                    { name: 'Belgian White', price: 199, veg: true, desc: 'White chocolate variant' },
-                    { name: 'Kinder Chocolate', price: 199, veg: true, desc: 'Kinder chocolate flavor' },
-                    { name: 'Lotus Biscoff', price: 229, veg: true, desc: 'Lotus biscoff layers', badge: 'Fan Fav' },
-                    { name: 'Triple Chocolate', price: 229, veg: true, desc: 'Triple chocolate bliss' },
-                    { name: 'Cravings Special', price: 249, veg: true, desc: 'Our exclusive creation', badge: 'Premium' }
-                ]
-            },
-            'French Crepes': {
-                items: [
-                    { name: 'Belgian Milk', price: 199, veg: true, desc: 'Classic Belgian milk' },
-                    { name: 'Belgian White', price: 199, veg: true, desc: 'White chocolate heaven' },
-                    { name: 'Kinder Chocolate', price: 199, veg: true, desc: 'Kinder layers' },
-                    { name: 'Lotus Biscoff', price: 229, veg: true, desc: 'Lotus biscoff crepe', badge: 'Fan Fav' },
-                    { name: 'Triple Chocolate', price: 229, veg: true, desc: 'Three chocolate types' },
-                    { name: 'Brownie Delight', price: 249, veg: true, desc: 'Brownie infused', badge: 'Special' },
-                    { name: 'Cravings Special', price: 249, veg: true, desc: 'Signature crepe', badge: 'Premium' }
-                ]
-            },
-            'Cookie Dough': {
-                items: [
-                    { name: 'Belgian Milk', price: 199, veg: true, desc: 'Milk chocolate cookie' },
-                    { name: 'Belgian White', price: 199, veg: true, desc: 'White chocolate dough' },
-                    { name: 'Kinder Chocolate', price: 199, veg: true, desc: 'Kinder chocolate base' },
-                    { name: 'Lotus Biscoff', price: 229, veg: true, desc: 'Lotus biscoff cookie', badge: 'Fan Fav' },
-                    { name: 'Triple Chocolate', price: 229, veg: true, desc: 'Triple chocolate mix' },
-                    { name: 'Brownie Delight', price: 249, veg: true, desc: 'Brownie cookie mix', badge: 'Special' },
-                    { name: 'Cravings Special', price: 249, veg: true, desc: 'Our signature cookie', badge: 'Premium' }
-                ]
-            },
-            'Toppings': {
-                items: [
-                    { name: 'Banana', price: 10, veg: true, desc: 'Fresh banana slices' },
-                    { name: 'Oreo Dust', price: 10, veg: true, desc: 'Crushed Oreo' },
-                    { name: 'Pistachio Nuts', price: 10, veg: true, desc: 'Premium pistachios' },
-                    { name: 'Lotus Dust', price: 10, veg: true, desc: 'Lotus biscoff powder' },
-                    { name: 'Vanilla Ice Cream', price: 30, veg: true, desc: 'Creamy vanilla' },
-                    { name: 'Chocolate Ice Cream', price: 40, veg: true, desc: 'Rich chocolate ice cream' }
-                ]
-            },
-            'Signature Kunafas': {
-                items: [
-                    { name: 'Original Kunafa', price: 199, veg: true, desc: 'Classic kunafa recipe' },
-                    { name: 'Nutella Loaded', price: 249, veg: true, desc: 'Nutella infused', badge: 'Fan Fav' },
-                    { name: 'Lotus Biscoff', price: 249, veg: true, desc: 'Lotus kunafa delight' },
-                    { name: 'Belgian Chocolate', price: 249, veg: true, desc: 'Belgian chocolate kunafa' },
-                    { name: 'Pistachio White Chocolate', price: 249, veg: true, desc: 'Pistachio & white choco', badge: 'Special' },
-                    { name: 'Cravings Special', price: 299, veg: true, desc: 'Ultimate kunafa', badge: 'Premium' }
-                ]
-            },
-            'Cheese Cakes': {
-                items: [
-                    { name: 'Strawberry', price: 129, veg: true, desc: 'Fresh strawberry cheesecake' },
-                    { name: 'Oreo', price: 129, veg: true, desc: 'Oreo cheesecake slice', badge: 'Fan Fav' },
-                    { name: 'Blueberry', price: 129, veg: true, desc: 'Blueberry cheesecake' }
-                ]
-            },
-            'Premium Cheese Cakes': {
-                items: [
-                    { name: 'Ferrero Rocher', price: 169, veg: true, desc: 'Ferrero Rocher premium', badge: 'Premium' },
-                    { name: 'Pistachio Kunafa', price: 169, veg: true, desc: 'Pistachio kunafa fusion', badge: 'Special' },
-                    { name: 'Rafello', price: 169, veg: true, desc: 'Coconut Rafello cheese' },
-                    { name: 'San Sebastian', price: 169, veg: true, desc: 'Spanish style cheesecake' },
-                    { name: 'Lotus Biscoff', price: 169, veg: true, desc: 'Lotus biscoff flavor', badge: 'Fan Fav' }
-                ]
-            },
-            'Tres Leches': {
-                items: [
-                    { name: 'Original (Vanilla)', price: 159, veg: true, desc: 'Classic tres leches' },
-                    { name: 'Lotus Biscoff', price: 159, veg: true, desc: 'Lotus flavored milkcake', badge: 'Fan Fav' },
-                    { name: 'Oreo', price: 159, veg: true, desc: 'Oreo tres leches' },
-                    { name: 'Pistachio', price: 159, veg: true, desc: 'Pistachio milkcake', badge: 'Special' }
-                ]
-            },
-            'Dream Cakes': {
-                items: [
-                    { name: 'Chocolate', price: 179, veg: true, desc: 'Pure chocolate dream' },
-                    { name: 'White Chocolate', price: 179, veg: true, desc: 'Elegant white chocolate' },
-                    { name: 'Tiramisu', price: 179, veg: true, desc: 'Classic tiramisu', badge: 'Fan Fav' },
-                    { name: 'Pistachio Kunafa Chocolate', price: 199, veg: true, desc: 'Triple flavor blend', badge: 'Special' },
-                    { name: 'White Chocolate Pistachio Kunafa', price: 199, veg: true, desc: 'Premium combination', badge: 'Premium' }
-                ]
-            },
-            'Signature Cake Slices': {
-                items: [
-                    { name: 'Red Velvet', price: 129, veg: true, desc: 'Red velvet classic' },
-                    { name: 'Chocolate Truffle', price: 129, veg: true, desc: 'Truffle chocolate layer', badge: 'Fan Fav' },
-                    { name: 'Rasmalai', price: 129, veg: true, desc: 'Indian rasmalai flavor' },
-                    { name: 'White Chocolate', price: 129, veg: true, desc: 'Silky white chocolate' }
-                ]
-            },
-            'Premium Dessert': {
-                items: [
-                    { name: 'Apricot Delight', price: 199, veg: true, desc: 'Apricot infused dessert', badge: 'Special' },
-                    { name: 'Hot Chocolate Brownie', price: 199, veg: true, desc: 'Warm brownie bliss', badge: 'Fan Fav' },
-                    { name: 'Death by Chocolate', price: 199, veg: true, desc: 'Ultimate chocolate lovers', badge: 'Premium' }
-                ]
-            },
-            'Appetizers - Veg': {
-                items: [
-                    { name: 'French Fries', price: 129, veg: true, desc: 'Crispy golden fries' },
-                    { name: 'Peri Peri Fries', price: 139, veg: true, desc: 'Spicy peri-peri fries', badge: 'Special' },
-                    { name: 'Veg Fingers', price: 189, veg: true, desc: 'Crispy vegetable fingers' },
-                    { name: 'Onion Rings', price: 189, veg: true, desc: 'Golden onion rings' },
-                    { name: 'Garlic Bread', price: 199, veg: true, desc: 'Crispy garlic toasted', badge: 'Fan Fav' }
-                ]
-            },
-            'Appetizers - Non Veg': {
-                items: [
-                    { name: 'Chicken Fingers', price: 199, veg: false, desc: 'Tender chicken fingers' },
-                    { name: 'Chicken Nuggets', price: 199, veg: false, desc: 'Crispy nuggets', badge: 'Fan Fav' },
-                    { name: 'Chicken Pops', price: 199, veg: false, desc: 'Bite-sized chicken' },
-                    { name: 'Chicken Wings', price: 249, veg: false, desc: 'Spicy chicken wings', badge: 'Special' }
-                ]
-            },
-            'Pizza': {
-                items: [
-                    { name: 'Veg Margerita', price: 199, veg: true, desc: 'Classic vegetarian pizza', badge: 'Fan Fav' },
-                    { name: 'Veggie Delight', price: 239, veg: true, desc: 'Loaded vegetable pizza' },
-                    { name: 'Corn Overload', price: 239, veg: true, desc: 'Corn topped pizza', badge: 'Special' },
-                    { name: 'Tandoori Paneer', price: 259, veg: true, desc: 'Tandoori paneer pizza' },
-                    { name: 'Mushroom', price: 259, veg: true, desc: 'Mushroom lovers pizza' },
-                    { name: 'Chicken Supreme', price: 259, veg: false, desc: 'Premium chicken pizza', badge: 'Fan Fav' },
-                    { name: 'Chicken Tikka', price: 259, veg: false, desc: 'Tandoori chicken pizza' },
-                    { name: 'Tandoori Chicken', price: 259, veg: false, desc: 'Spiced tandoori chicken' },
-                    { name: 'Barbeque Chicken', price: 259, veg: false, desc: 'Smoky BBQ chicken', badge: 'Special' },
-                    { name: 'Chicken Chettinadu', price: 259, veg: false, desc: 'South Indian spice pizza', badge: 'Premium' }
-                ]
-            },
-            'Pasta': {
-                items: [
-                    { name: 'Veg Alfredo', price: 199, veg: true, desc: 'Creamy alfredo pasta' },
-                    { name: 'Veg Red Sauce', price: 199, veg: true, desc: 'Vegetable red sauce', badge: 'Fan Fav' },
-                    { name: 'Non Veg Alfredo', price: 199, veg: false, desc: 'Chicken alfredo pasta' },
-                    { name: 'Non Veg Red Sauce', price: 249, veg: false, desc: 'Chicken red sauce', badge: 'Special' }
-                ]
-            },
-            'Burger': {
-                items: [
-                    { name: 'Veg & Cheese', price: 149, veg: true, desc: 'Vegetable cheese burger' },
-                    { name: 'Paneer & Cheese', price: 179, veg: true, desc: 'Paneer cheese burger', badge: 'Fan Fav' },
-                    { name: 'Chicken & Cheese', price: 179, veg: false, desc: 'Chicken cheese burger' },
-                    { name: 'Chicken Jumbo', price: 199, veg: false, desc: 'Jumbo chicken burger', badge: 'Premium' }
-                ]
-            },
-            'Sandwich': {
-                items: [
-                    { name: 'Veg and Cheese', price: 149, veg: true, desc: 'Vegetable cheese sandwich' },
-                    { name: 'Paneer Tikka', price: 179, veg: true, desc: 'Paneer tikka sandwich', badge: 'Fan Fav' },
-                    { name: 'Tandoori Chicken', price: 179, veg: false, desc: 'Spiced chicken sandwich' },
-                    { name: 'Chicken and Cheese', price: 179, veg: false, desc: 'Chicken cheese combo' },
-                    { name: 'Chicken Tikka', price: 179, veg: false, desc: 'Tandoori chicken tikka', badge: 'Special' }
-                ]
-            },
-            'Loaded Fries': {
-                items: [
-                    { name: 'Paneer Loaded', price: 249, veg: true, desc: 'Paneer topped fries', badge: 'Fan Fav' },
-                    { name: 'Chicken Loaded', price: 249, veg: false, desc: 'Chicken topped fries', badge: 'Special' }
-                ]
-            },
-            'Thickshakes': {
-                items: [
-                    { name: 'Vanilla', price: 169, veg: true, desc: 'Creamy vanilla shake' },
-                    { name: 'Oreo', price: 169, veg: true, desc: 'Oreo cookie shake', badge: 'Fan Fav' },
-                    { name: 'Strawberry', price: 169, veg: true, desc: 'Fresh strawberry shake' },
-                    { name: 'Chocolate', price: 169, veg: true, desc: 'Rich chocolate shake' },
-                    { name: 'KitKat', price: 169, veg: true, desc: 'KitKat chocolate shake', badge: 'Special' },
-                    { name: 'Coffee Love', price: 169, veg: true, desc: 'Coffee shake' }
-                ]
-            },
-            'Mocktails': {
-                items: [
-                    { name: 'Virgin Mojito', price: 99, veg: true, desc: 'Refreshing mojito' },
-                    { name: 'Strawberry', price: 99, veg: true, desc: 'Fresh strawberry mocktail' },
-                    { name: 'Watermelon', price: 89, veg: true, desc: 'Watermelon refresher', badge: 'Fan Fav' },
-                    { name: 'Passion Fruit', price: 99, veg: true, desc: 'Tropical passion fruit' },
-                    { name: 'Cotton Candy', price: 89, veg: true, desc: 'Sweet cotton candy', badge: 'Special' },
-                    { name: 'Spicy Guava', price: 99, veg: true, desc: 'Spiced guava mocktail' }
-                ]
-            },
-            'Premium Shakes': {
-                items: [
-                    { name: 'Kinder Bueno', price: 199, veg: true, desc: 'Kinder Bueno premium', badge: 'Premium' },
-                    { name: 'Ferrero Rocher', price: 199, veg: true, desc: 'Ferrero Rocher shake', badge: 'Special' },
-                    { name: 'Brownie Delight', price: 199, veg: true, desc: 'Brownie chocolate shake', badge: 'Fan Fav' },
-                    { name: 'Snickers Shake', price: 199, veg: true, desc: 'Snickers chocolate shake' },
-                    { name: 'Crunchie Shake', price: 199, veg: true, desc: 'Crunchie candy shake' }
-                ]
-            },
-            'Falooda': {
-                items: [
-                    { name: 'Mango', price: 149, veg: true, desc: 'Mango falooda' },
-                    { name: 'Kulfi', price: 149, veg: true, desc: 'Traditional kulfi falooda', badge: 'Fan Fav' },
-                    { name: 'Rose', price: 149, veg: true, desc: 'Rose flavored falooda', badge: 'Special' },
-                    { name: 'Strawberry', price: 149, veg: true, desc: 'Strawberry falooda' }
-                ]
-            },
-            'Beverages': {
-                items: [
-                    { name: 'Water Bottle', price: 20, veg: true, desc: 'Mineral water' },
-                    { name: 'Coke Tin', price: 40, veg: true, desc: 'Coca Cola' },
-                    { name: 'Thumbsup Tin', price: 40, veg: true, desc: 'Thumbs Up' },
-                    { name: 'Diet Coke Tin', price: 40, veg: true, desc: 'Diet Coca Cola' }
-                ]
-            }
+            'Waffles & Crepes': [
+                { name: 'Belgian Milk Waffle', price: 199, veg: true, desc: 'Crispy Belgian waffle', badge: 'Fan Fav' },
+                { name: 'Belgian White Waffle', price: 199, veg: true, desc: 'White chocolate delight' },
+                { name: 'Kinder Chocolate Waffle', price: 199, veg: true, desc: 'Kinder layers inside' },
+                { name: 'Lotus Biscoff Waffle', price: 229, veg: true, desc: 'Lotus flavor paradise', badge: 'Premium' },
+                { name: 'Triple Chocolate', price: 229, veg: true, desc: 'Three chocolate types' },
+                { name: 'Cravings Special Waffle', price: 249, veg: true, desc: 'Our signature creation', badge: 'Must Try' },
+                { name: 'French Crepes', price: 219, veg: true, desc: 'Delicate French style' },
+                { name: 'Mini Pancake Stack', price: 189, veg: true, desc: 'Fluffy mini pancakes' }
+            ],
+            'Kunafas': [
+                { name: 'Original Kunafa', price: 199, veg: true, desc: 'Classic kunafa recipe' },
+                { name: 'Nutella Loaded', price: 249, veg: true, desc: 'Nutella infused bliss', badge: 'Fan Fav' },
+                { name: 'Lotus Biscoff Kunafa', price: 249, veg: true, desc: 'Lotus flavor magic' },
+                { name: 'Belgian Chocolate Kunafa', price: 249, veg: true, desc: 'Premium Belgian chocolate' },
+                { name: 'Pistachio White Chocolate', price: 249, veg: true, desc: 'Pistachio & white choco', badge: 'Special' },
+                { name: 'Cravings Special Kunafa', price: 299, veg: true, desc: 'Ultimate kunafa', badge: 'Premium' }
+            ],
+            'Cakes & Desserts': [
+                { name: 'Strawberry Cheesecake', price: 129, veg: true, desc: 'Fresh strawberry slice' },
+                { name: 'Oreo Cheesecake', price: 129, veg: true, desc: 'Oreo cheesecake slice', badge: 'Fan Fav' },
+                { name: 'Blueberry Cheesecake', price: 129, veg: true, desc: 'Blueberry cheesecake' },
+                { name: 'Ferrero Rocher Cake', price: 169, veg: true, desc: 'Premium Ferrero taste', badge: 'Premium' },
+                { name: 'Tiramisu Dream', price: 159, veg: true, desc: 'Classic tiramisu', badge: 'Fan Fav' },
+                { name: 'Death by Chocolate', price: 199, veg: true, desc: 'Ultimate chocolate lovers', badge: 'Must Try' },
+                { name: 'Chocolate Truffle Slice', price: 129, veg: true, desc: 'Rich truffle layer' },
+                { name: 'Red Velvet Cake', price: 129, veg: true, desc: 'Classic red velvet' }
+            ],
+            'Mains': [
+                { name: 'Veg Margerita Pizza', price: 199, veg: true, desc: 'Classic vegetarian', badge: 'Fan Fav' },
+                { name: 'Tandoori Paneer Pizza', price: 259, veg: true, desc: 'Tandoori paneer pizza' },
+                { name: 'Chicken Supreme', price: 259, veg: false, desc: 'Premium chicken pizza', badge: 'Premium' },
+                { name: 'Barbeque Chicken', price: 259, veg: false, desc: 'Smoky BBQ goodness', badge: 'Special' },
+                { name: 'Veg & Cheese Burger', price: 149, veg: true, desc: 'Cheesy burger' },
+                { name: 'Chicken Burger', price: 179, veg: false, desc: 'Juicy chicken burger' },
+                { name: 'Veg Alfredo Pasta', price: 199, veg: true, desc: 'Creamy pasta' },
+                { name: 'Chicken Red Sauce', price: 249, veg: false, desc: 'Chicken red sauce pasta' }
+            ],
+            'Starters': [
+                { name: 'French Fries', price: 129, veg: true, desc: 'Crispy golden fries' },
+                { name: 'Peri Peri Fries', price: 139, veg: true, desc: 'Spicy fries', badge: 'Special' },
+                { name: 'Veg Fingers', price: 189, veg: true, desc: 'Crispy vegetable fingers' },
+                { name: 'Garlic Bread', price: 199, veg: true, desc: 'Crispy garlic toasted', badge: 'Fan Fav' },
+                { name: 'Chicken Fingers', price: 199, veg: false, desc: 'Tender chicken fingers' },
+                { name: 'Chicken Nuggets', price: 199, veg: false, desc: 'Crispy nuggets', badge: 'Popular' },
+                { name: 'Chicken Wings', price: 249, veg: false, desc: 'Spicy chicken wings', badge: 'Special' },
+                { name: 'Onion Rings', price: 189, veg: true, desc: 'Golden onion rings' }
+            ],
+            'Shakes': [
+                { name: 'Vanilla Shake', price: 169, veg: true, desc: 'Creamy vanilla' },
+                { name: 'Oreo Shake', price: 169, veg: true, desc: 'Oreo cookie shake', badge: 'Fan Fav' },
+                { name: 'Strawberry Shake', price: 169, veg: true, desc: 'Fresh strawberry' },
+                { name: 'Chocolate Shake', price: 169, veg: true, desc: 'Rich chocolate' },
+                { name: 'KitKat Shake', price: 169, veg: true, desc: 'KitKat chocolate', badge: 'Special' },
+                { name: 'Kinder Bueno', price: 199, veg: true, desc: 'Kinder Bueno premium', badge: 'Premium' },
+                { name: 'Ferrero Rocher', price: 199, veg: true, desc: 'Ferrero shake', badge: 'Premium' },
+                { name: 'Brownie Delight', price: 199, veg: true, desc: 'Brownie chocolate', badge: 'Fan Fav' }
+            ],
+            'Drinks': [
+                { name: 'Virgin Mojito', price: 99, veg: true, desc: 'Refreshing mojito' },
+                { name: 'Strawberry Mocktail', price: 99, veg: true, desc: 'Fresh strawberry' },
+                { name: 'Watermelon Refresher', price: 89, veg: true, desc: 'Watermelon mix', badge: 'Fan Fav' },
+                { name: 'Passion Fruit', price: 99, veg: true, desc: 'Tropical passion fruit' },
+                { name: 'Mango Falooda', price: 149, veg: true, desc: 'Mango falooda' },
+                { name: 'Kulfi Falooda', price: 149, veg: true, desc: 'Traditional kulfi' },
+                { name: 'Coke Tin', price: 40, veg: true, desc: 'Coca Cola' },
+                { name: 'Water Bottle', price: 20, veg: true, desc: 'Mineral water' }
+            ]
         };
 
-        const reviews = [
-            {
-                stars: 5,
-                quote: "The pizza had an amazing crust and toppings, cheese and mayo were simply fantastic. The cheesecake just melted in our mouth.",
-                author: "Bejjugam Madhuri",
-                date: "4 months ago"
-            },
-            {
-                stars: 5,
-                quote: "The crust was perfectly baked — crisp on the outside yet soft inside. Toppings were generous and colourful.",
-                author: "Naveen Kumar",
-                date: "5 months ago"
-            },
-            {
-                stars: 5,
-                quote: "Tried the Pistachio Kunafa Chocolate Dream Cake — pure indulgence! Rich, creamy and perfectly balanced. Worth every bite!",
-                author: "Deepu",
-                date: "5 months ago"
-            },
-            {
-                stars: 5,
-                quote: "Full of cheese and best quality. Food was fresh and service very quick!",
-                author: "Happy Customer",
-                date: "3 months ago"
-            },
-            {
-                stars: 5,
-                quote: "Food: 5 · Service: 5 · Atmosphere: 5. Wait under 10 minutes. Absolutely loved it!",
-                author: "Saketh Chittaluri",
-                date: "2 days ago"
-            }
+        // ==================== SPECIALS DATA ==================== 
+        const specialsData = [
+            { icon: '🍫', name: "Dubai's Viral Pistachio Kunafa Chocolate Bar", price: 349, badge: 'Viral' },
+            { icon: '🫓', name: "Cravings Special Kunafa", price: 299, badge: 'Chef\'s Pick' },
+            { icon: '🎂', name: "Pistachio Kunafa Chocolate Dream Cake", price: 199, badge: 'Premium' },
+            { icon: '🎂', name: "White Chocolate Pistachio Kunafa Dream Cake", price: 199, badge: 'Special' },
+            { icon: '🍫', name: "Death by Chocolate", price: 199, badge: 'Must Try' },
+            { icon: '🍰', name: "Pistachio Kunafa Premium Cheesecake", price: 169, badge: 'Exclusive' },
+            { icon: '🥤', name: "Kinder Bueno Premium Shake", price: 199, badge: 'Premium' },
+            { icon: '🥤', name: "Ferrero Rocher Premium Shake", price: 199, badge: 'Premium' }
         ];
 
-        // ==================== RENDER FUNCTIONS ==================== 
+    
+
+        // ==================== RENDER MENU ==================== 
         function renderMenu() {
             const menuTabs = document.getElementById('menuTabs');
             const menuContent = document.getElementById('menuContent');
             
             let tabsHTML = '';
             let contentHTML = '';
-            let isFirst = true;
+            let tabIndex = 0;
 
-            for (const [category, data] of Object.entries(menuData)) {
-                const categoryId = category.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            for (const [category, items] of Object.entries(menuData)) {
+                const isFirst = tabIndex === 0;
+                const tabId = `menu-tab-${tabIndex}`;
                 
-                // Tab
-                tabsHTML += `<button class="menu-tab ${isFirst ? 'active' : ''}" data-category="${categoryId}">${category}</button>`;
+                tabsHTML += `<button class="menu-tab ${isFirst ? 'active' : ''}" data-index="${tabIndex}">${category}</button>`;
                 
-                // Content
-                contentHTML += `<div class="tab-content ${isFirst ? 'active' : ''}" id="tab-${categoryId}">
-                    <div class="menu-items">`;
+                contentHTML += `<div class="tab-content ${isFirst ? 'active' : ''}" id="${tabId}">`;
                 
-                data.items.forEach(item => {
-                    const vegClass = item.veg ? 'veg' : 'non-veg';
-                    const vegDot = item.veg ? '🟢' : '🔴';
-                    const badge = item.badge ? `<div class="menu-item-badge">${item.badge}</div>` : '';
+                items.forEach(item => {
+                    const dotClass = item.veg ? 'veg' : 'non-veg';
+                    const badge = item.badge ? `<span class="menu-badge">${item.badge}</span>` : '';
                     
                     contentHTML += `
-                        <div class="menu-item fade-in">
-                            <div class="menu-item-header">
-                                <div>
-                                    <div class="menu-item-name">
-                                        <span class="veg-dot ${vegClass}"></span>
-                                        ${item.name}
-                                    </div>
-                                    <div class="menu-item-desc">${item.desc}</div>
+                        <div class="menu-item">
+                            <div class="menu-item-head">
+                                <div class="menu-item-name">
+                                    <span class="veg-dot ${dotClass}"></span>
+                                    ${item.name}
                                 </div>
+                                <div class="menu-price">₹${item.price}</div>
                             </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div class="menu-item-price">₹${item.price}</div>
-                                ${badge}
-                            </div>
+                            <p class="menu-desc">${item.desc}</p>
+                            ${badge}
                         </div>
                     `;
                 });
                 
-                contentHTML += `</div></div>`;
-                isFirst = false;
+                contentHTML += `</div>`;
+                tabIndex++;
             }
             
             menuTabs.innerHTML = tabsHTML;
             menuContent.innerHTML = contentHTML;
 
-            // Add tab click handlers
             document.querySelectorAll('.menu-tab').forEach(tab => {
                 tab.addEventListener('click', () => {
                     document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
                     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                     
                     tab.classList.add('active');
-                    const categoryId = tab.getAttribute('data-category');
-                    const newContent = document.getElementById(`tab-${categoryId}`);
-                    newContent.classList.add('active');
-                    
-                    // Make all menu items in the new tab visible with animation
-                    newContent.querySelectorAll('.fade-in').forEach(element => {
-                        element.classList.add('visible');
-                    });
+                    const index = tab.dataset.index;
+                    document.getElementById(`menu-tab-${index}`).classList.add('active');
                 });
             });
         }
 
+        // ==================== RENDER SPECIALS ==================== 
         function renderSpecials() {
-            const specials = [
-                { icon: '🍫', name: "Dubai's Viral Pistachio Kunafa Chocolate Bar", price: 349 },
-                { icon: '🫓', name: "Cravings Special Kunafa", price: 299 },
-                { icon: '🥤', name: "Kinder Bueno Premium Shake", price: 199 },
-                { icon: '🎂', name: "Pistachio Kunafa Chocolate Dream Cake", price: 199 }
-            ];
-
-            const specialsGrid = document.getElementById('specialsGrid');
-            specialsGrid.innerHTML = specials.map(special => `
-                <div class="special-card fade-in visible">
+            const grid = document.getElementById('specialsGrid');
+            grid.innerHTML = specialsData.map(special => `
+                <div class="special-card fade-in">
                     <div class="special-icon">${special.icon}</div>
                     <div class="special-name">${special.name}</div>
                     <div class="special-price">₹${special.price}</div>
+                    ${special.badge ? `<div class="special-badge">${special.badge}</div>` : ''}
                 </div>
             `).join('');
         }
 
-        function renderReviews() {
-            const reviewsGrid = document.getElementById('reviewsGrid');
-            reviewsGrid.innerHTML = reviews.map(review => `
-                <div class="review-card fade-in visible">
-                    <div class="review-stars">${'★'.repeat(review.stars)}</div>
-                    <div class="review-quote">"${review.quote}"</div>
-                    <div class="review-author">— ${review.author}</div>
-                    <div class="review-date">${review.date}</div>
-                </div>
-            `).join('');
-        }
-
-        function renderContact() {
-            const contactInfo = document.getElementById('contactInfo');
-            const contacts = [
-                { icon: '📞', label: 'Phone', value: '<a href="tel:+917636050350">+91 76360 50350</a>' },
-                { icon: '💬', label: 'WhatsApp Orders', value: '<a href="https://wa.me/917050950930">+91 97050 50930</a>' },
-                { icon: '📍', label: 'Location', value: '3-12-30/A, Ganesh Nagar, Ramanthapur, Hyderabad – 500013' },
-                { icon: '⏰', label: 'Hours', value: 'Open Daily · 11 AM – 11 PM' },
-                { icon: '📸', label: 'Instagram', value: '<a href="https://instagram.com/cravings_hyd">@cravings_hyd</a>' },
-                { icon: '🛵', label: 'Delivery', value: 'Free delivery below 3 KM' },
-                { icon: '🎉', label: 'Party Orders', value: 'Undertaken – Call for details' }
-            ];
-
-            contactInfo.innerHTML = contacts.map(contact => `
-                <div class="contact-item fade-in">
-                    <div class="contact-icon">${contact.icon}</div>
-                    <div class="contact-item-text">
-                        <div class="contact-item-label">${contact.label}</div>
-                        <div class="contact-item-value">${contact.value}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ==================== FORM HANDLING ==================== 
-        document.getElementById('enquiryForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const message = document.getElementById('message').value;
-            
-            alert(`Thank you, ${name}! Your enquiry has been received. We'll contact you at ${phone} soon.`);
-            e.target.reset();
-        });
+        // ==================== RENDER REVIEWS ==================== 
 
         // ==================== MOBILE MENU ==================== 
         const menuToggle = document.getElementById('menuToggle');
@@ -1504,7 +1234,6 @@
             navLinks.classList.toggle('active');
         });
 
-        // Close menu on link click
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('active');
@@ -1512,10 +1241,14 @@
             });
         });
 
-        // ==================== SMOOTH SCROLL ANIMATIONS ==================== 
+        // ==================== INITIALIZATION ====================
+        renderMenu();
+        renderSpecials();
+
+        // ==================== SCROLL ANIMATIONS ==================== 
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -1528,12 +1261,6 @@
         }, observerOptions);
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // ==================== INITIALIZATION ==================== 
-        renderMenu();
-        renderSpecials();
-        renderReviews();
-        renderContact();
     </script>
 </body>
 </html>
