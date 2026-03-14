@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cravings - Cloud Kitchen | The Taste of Happiness!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #1A0D05;
+            --bg-card: #2A1408;
+            --accent: #C8773A;
+            --accent-light: #E8B84B;
+            --text-light: #FDF6EC;
+            --text-muted: #BFA185;
+            --gradient-amber: linear-gradient(135deg, #C8773A, #E8B84B);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ==================== UTILITIES ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 13, 5, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(200, 119, 58, 0.2);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-light);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-light);
+        }
+
+        .call-btn {
+            background: var(--accent);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent);
+        }
+
+        .call-btn:hover {
+            background: transparent;
+            border-color: var(--accent-light);
+            color: var(--accent-light);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-light);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #1A0D05 0%, #2A1408 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 70px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(232, 184, 75, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: floatGlow 6s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.02),
+                    rgba(255, 255, 255, 0.02) 1px,
+                    transparent 1px,
+                    transparent 2px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.02),
+                    rgba(255, 255, 255, 0.02) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            animation: fadeUp 1s ease-out;
+        }
+
+        .hero-tag {
+            color: var(--accent-light);
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: var(--text-light);
+        }
+
+        .hero-title .gold {
+            color: var(--accent-light);
+            font-style: italic;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        .hero-rating {
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .hero-rating .stars {
+            color: #FFD700;
+            margin-right: 0.5rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gradient-amber);
+            color: white;
+            border: 2px solid var(--accent-light);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(232, 184, 75, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-light);
+            border: 2px solid var(--accent-light);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-light);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+        }
+
+        .hero-emojis {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .emoji1 {
+            top: 15%;
+            left: 10%;
+            animation: bob 4s ease-in-out infinite;
+        }
+
+        .emoji2 {
+            top: 60%;
+            right: 15%;
+            animation: bob 5s ease-in-out infinite 0.5s;
+        }
+
+        .emoji3 {
+            bottom: 20%;
+            left: 20%;
+            animation: bob 6s ease-in-out infinite 1s;
+        }
+
+        @keyframes bob {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes floatGlow {
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.25; }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==================== STATS STRIP ==================== */
+        .stats {
+            background-color: #2A1408;
+            padding: 4rem 2rem;
+            border-top: 1px solid rgba(200, 119, 58, 0.2);
+            border-bottom: 1px solid rgba(200, 119, 58, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item {
+            animation: slideUp 0.8s ease-out backwards;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0.1s; }
+        .stat-item:nth-child(2) { animation-delay: 0.2s; }
+        .stat-item:nth-child(3) { animation-delay: 0.3s; }
+        .stat-item:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ==================== MENU SECTION ==================== */
+        .menu-section {
+            padding: 6rem 2rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .section-title .accent {
+            color: var(--accent-light);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid rgba(200, 119, 58, 0.2);
+            padding-bottom: 2rem;
+        }
+
+        .menu-tab {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid rgba(200, 119, 58, 0.3);
+            color: var(--text-light);
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .menu-tab:hover {
+            border-color: var(--accent-light);
+            color: var(--accent-light);
+        }
+
+        .menu-tab.active {
+            background: var(--gradient-amber);
+            border-color: var(--accent-light);
+            color: white;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(200, 119, 58, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeUp 0.6s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(232, 184, 75, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-light);
+            box-shadow: 0 15px 40px rgba(200, 119, 58, 0.15), inset 0 0 30px rgba(232, 184, 75, 0.05);
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.8rem;
+        }
+
+        .menu-item-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .veg-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        .veg-dot.veg {
+            background: #05B800;
+        }
+
+        .veg-dot.non-veg {
+            background: #DC143C;
+        }
+
+        .menu-item-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--accent-light);
+            font-weight: 700;
+        }
+
+        .menu-item-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .menu-item-badge {
+            display: inline-block;
+            background: rgba(232, 184, 75, 0.2);
+            color: var(--accent-light);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            border: 1px solid var(--accent-light);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeUp 0.5s ease-out;
+        }
+
+        /* ==================== CHEF'S SPECIALS ==================== */
+        .specials-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(26, 13, 5, 0.8) 0%, rgba(42, 20, 8, 0.8) 100%);
+        }
+
+        .specials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .special-card {
+            background: linear-gradient(135deg, var(--bg-card), #1A0D05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--accent);
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeUp 0.6s ease-out;
+        }
+
+        .special-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-light);
+            box-shadow: 0 20px 50px rgba(232, 184, 75, 0.2);
+        }
+
+        .special-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .special-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .special-price {
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            font-weight: 700;
+        }
+
+        /* ==================== REVIEWS SECTION ==================== */
+        .reviews-section {
+            padding: 6rem 2rem;
+            background-color: var(--text-light);
+            color: var(--bg-dark);
+        }
+
+        .reviews-section .section-title {
+            color: var(--bg-dark);
+        }
+
+        .reviews-section .section-subtitle {
+            color: #666;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 5px 20px rgba(26, 13, 5, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeUp 0.6s ease-out;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(26, 13, 5, 0.15);
+        }
+
+        .review-stars {
+            color: #FFD700;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: #333;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .review-author {
+            font-weight: 700;
+            color: var(--bg-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .review-date {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* ==================== CONTACT SECTION ==================== */
+        .contact-section {
+            padding: 6rem 2rem;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            animation: fadeUp 0.6s ease-out;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            min-width: 30px;
+            margin-top: 0.2rem;
+        }
+
+        .contact-item-text {
+            flex: 1;
+        }
+
+        .contact-item-label {
+            color: var(--accent-light);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-item-value {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .contact-item-value a {
+            color: var(--accent-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item-value a:hover {
+            text-decoration: underline;
+        }
+
+        .enquiry-form {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(200, 119, 58, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(200, 119, 58, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-family: 'Lato', sans-serif;
+            transition: all 0.3s ease;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-light);
+            background: rgba(232, 184, 75, 0.05);
+            box-shadow: 0 0 15px rgba(232, 184, 75, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+        }
+
+        .form-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-amber);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .form-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(232, 184, 75, 0.3);
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: #0F0704;
+            border-top: 1px solid rgba(200, 119, 58, 0.2);
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--accent-light);
+            font-weight: 700;
+        }
+
+        .footer-tagline {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-social a {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--text-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(200, 119, 58, 0.2);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ==================== MOBILE RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: rgba(26, 13, 5, 0.98);
+                gap: 0;
+                padding: 2rem;
+                border-bottom: 1px solid rgba(200, 119, 58, 0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                border-bottom: 1px solid rgba(200, 119, 58, 0.2);
+                padding: 1rem 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(8px, -8px);
+            }
+
+            .hero {
+                margin-top: 60px;
+                height: auto;
+                min-height: 80vh;
+                padding: 2rem 0;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero-emojis {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .menu-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+
+            .specials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .menu-tabs {
+                gap: 0.5rem;
+            }
+
+            .menu-tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ==================== SCROLL ANIMATION ==================== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Cravings</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#specials">Specials</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="tel:+917636050350" class="call-btn">📞 Call Now</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero">
+        <div class="hero-emojis emoji1">🍕</div>
+        <div class="hero-emojis emoji2">🍔</div>
+        <div class="hero-emojis emoji3">🍰</div>
+        <div class="hero-content">
+            <div class="hero-tag">Cloud Kitchen · Ramanthapur, Hyderabad</div>
+            <h1 class="hero-title">The Last Bite <span class="gold">You'll</span> Ever Crave</h1>
+            <p class="hero-subtitle">Handcrafted pizzas, loaded burgers, dreamy desserts & chilled shakes — made fresh, delivered with love.</p>
+            <div class="hero-rating">
+                <span class="stars">★★★★★</span>
+                <span>5.0 · 31 happy customers</span>
+            </div>
+            <div class="hero-cta">
+                <a href="#menu" class="btn btn-primary">Explore Menu</a>
+                <a href="#contact" class="btn btn-outline">Make an Enquiry</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== STATS STRIP ==================== -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">⭐ 5.0</div>
+                <div class="stat-label">Google Rating</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">31+</div>
+                <div class="stat-label">5-Star Reviews</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">₹200</div>
+                <div class="stat-label">Meals Starting At</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10 min</div>
+                <div class="stat-label">Average Wait Time</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MENU SECTION ==================== -->
+    <section id="menu" class="menu-section">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <img src="logo.png" alt="Cravings Logo" style="max-width: 150px; height: auto;">
+        </div>
+        
+        <h2 class="section-title">Our <span class="accent">Menu</span></h2>
+        <p class="section-subtitle">Carefully crafted items designed to satisfy every craving</p>
+        
+        <div class="menu-tabs" id="menuTabs"></div>
+        <div id="menuContent"></div>
+    </section>
+
+    <!-- ==================== CHEF'S SPECIALS ==================== -->
+    <section id="specials" class="specials-section">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <img src="logo.png" alt="Cravings Logo" style="max-width: 150px; height: auto;">
+        </div>
+        
+        <h2 class="section-title">Chef's <span class="accent">Specials</span></h2>
+        <p class="section-subtitle" style="color: var(--text-muted); margin-bottom: 3rem;">Our signature creations you must try</p>
+        
+        <div class="specials-grid" id="specialsGrid"></div>
+    </section>
+
+    <!-- ==================== REVIEWS SECTION ==================== -->
+    <section id="reviews" class="reviews-section">
+        <h2 class="section-title">What Our <span style="color: var(--accent);">Customers</span> Say</h2>
+        <p class="section-subtitle" style="color: #666;">Join thousands of happy customers</p>
+        
+        <div class="reviews-grid" id="reviewsGrid"></div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Get in <span class="accent">Touch</span></h2>
+        <p class="section-subtitle">We'd love to hear from you. Reach out anytime!</p>
+        
+        <div class="contact-content">
+            <div class="contact-info" id="contactInfo"></div>
+            <form class="enquiry-form" id="enquiryForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="form-btn">Send Enquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">Cravings</div>
+                <div class="footer-tagline">"The Taste of Happiness!"</div>
+            </div>
+            <div class="footer-social">
+                <a href="https://instagram.com/cravings_hyd" target="_blank">📸 @cravings_hyd</a>
+                <a href="https://swiggy.com" target="_blank">🍕 Swiggy</a>
+                <a href="https://zomato.com" target="_blank">🍽️ Zomato</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Cravings Cloud Kitchen. All rights reserved. Made with ❤️ in Hyderabad.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ==================== MENU DATA ==================== 
+        const menuData = {
+            'Waffle Bites': {
+                items: [
+                    { name: 'Belgian Milk', price: 199, veg: true, desc: 'Crispy waffle bite' },
+                    { name: 'Belgian White', price: 199, veg: true, desc: 'White chocolate goodness' },
+                    { name: 'Kinder Chocolate', price: 199, veg: true, desc: 'Kinder chocolate layers' },
+                    { name: 'Lotus Biscoff', price: 229, veg: true, desc: 'Lotus flavor delight', badge: 'Fan Fav' },
+                    { name: 'Triple Chocolate', price: 229, veg: true, desc: 'Triple chocolate layers' },
+                    { name: 'Cravings Special', price: 249, veg: true, desc: 'Our signature creation', badge: 'Premium' }
+                ]
+            },
+            'Waffle': {
+                items: [
+                    { name: 'Belgian Milk', price: 199, veg: true, desc: 'Crispy waffle bite' },
+                    { name: 'Belgian White', price: 199, veg: true, desc: 'White chocolate goodness' },
+                    { name: 'Kinder Chocolate', price: 199, veg: true, desc: 'Kinder chocolate layers' },
+                    { name: 'Lotus Biscoff', price: 229, veg: true, desc: 'Lotus flavor delight', badge: 'Fan Fav' },
+                    { name: 'Triple Chocolate', price: 229, veg: true, desc: 'Triple chocolate layers' },
+                    { name: 'Cravings Special', price: 249, veg: true, desc: 'Our signature creation', badge: 'Premium' }
+                ]
+            },
+            'Mini Pancake': {
+                items: [
+                    { name: 'Belgian Milk', price: 199, veg: true, desc: 'Fluffy pancake' },
+                    { name: 'Belgian White', price: 199, veg: true, desc: 'White chocolate variant' },
+                    { name: 'Kinder Chocolate', price: 199, veg: true, desc: 'Kinder chocolate flavor' },
+                    { name: 'Lotus Biscoff', price: 229, veg: true, desc: 'Lotus biscoff layers', badge: 'Fan Fav' },
+                    { name: 'Triple Chocolate', price: 229, veg: true, desc: 'Triple chocolate bliss' },
+                    { name: 'Cravings Special', price: 249, veg: true, desc: 'Our exclusive creation', badge: 'Premium' }
+                ]
+            },
+            'French Crepes': {
+                items: [
+                    { name: 'Belgian Milk', price: 199, veg: true, desc: 'Classic Belgian milk' },
+                    { name: 'Belgian White', price: 199, veg: true, desc: 'White chocolate heaven' },
+                    { name: 'Kinder Chocolate', price: 199, veg: true, desc: 'Kinder layers' },
+                    { name: 'Lotus Biscoff', price: 229, veg: true, desc: 'Lotus biscoff crepe', badge: 'Fan Fav' },
+                    { name: 'Triple Chocolate', price: 229, veg: true, desc: 'Three chocolate types' },
+                    { name: 'Brownie Delight', price: 249, veg: true, desc: 'Brownie infused', badge: 'Special' },
+                    { name: 'Cravings Special', price: 249, veg: true, desc: 'Signature crepe', badge: 'Premium' }
+                ]
+            },
+            'Cookie Dough': {
+                items: [
+                    { name: 'Belgian Milk', price: 199, veg: true, desc: 'Milk chocolate cookie' },
+                    { name: 'Belgian White', price: 199, veg: true, desc: 'White chocolate dough' },
+                    { name: 'Kinder Chocolate', price: 199, veg: true, desc: 'Kinder chocolate base' },
+                    { name: 'Lotus Biscoff', price: 229, veg: true, desc: 'Lotus biscoff cookie', badge: 'Fan Fav' },
+                    { name: 'Triple Chocolate', price: 229, veg: true, desc: 'Triple chocolate mix' },
+                    { name: 'Brownie Delight', price: 249, veg: true, desc: 'Brownie cookie mix', badge: 'Special' },
+                    { name: 'Cravings Special', price: 249, veg: true, desc: 'Our signature cookie', badge: 'Premium' }
+                ]
+            },
+            'Toppings': {
+                items: [
+                    { name: 'Banana', price: 10, veg: true, desc: 'Fresh banana slices' },
+                    { name: 'Oreo Dust', price: 10, veg: true, desc: 'Crushed Oreo' },
+                    { name: 'Pistachio Nuts', price: 10, veg: true, desc: 'Premium pistachios' },
+                    { name: 'Lotus Dust', price: 10, veg: true, desc: 'Lotus biscoff powder' },
+                    { name: 'Vanilla Ice Cream', price: 30, veg: true, desc: 'Creamy vanilla' },
+                    { name: 'Chocolate Ice Cream', price: 40, veg: true, desc: 'Rich chocolate ice cream' }
+                ]
+            },
+            'Signature Kunafas': {
+                items: [
+                    { name: 'Original Kunafa', price: 199, veg: true, desc: 'Classic kunafa recipe' },
+                    { name: 'Nutella Loaded', price: 249, veg: true, desc: 'Nutella infused', badge: 'Fan Fav' },
+                    { name: 'Lotus Biscoff', price: 249, veg: true, desc: 'Lotus kunafa delight' },
+                    { name: 'Belgian Chocolate', price: 249, veg: true, desc: 'Belgian chocolate kunafa' },
+                    { name: 'Pistachio White Chocolate', price: 249, veg: true, desc: 'Pistachio & white choco', badge: 'Special' },
+                    { name: 'Cravings Special', price: 299, veg: true, desc: 'Ultimate kunafa', badge: 'Premium' }
+                ]
+            },
+            'Cheese Cakes': {
+                items: [
+                    { name: 'Strawberry', price: 129, veg: true, desc: 'Fresh strawberry cheesecake' },
+                    { name: 'Oreo', price: 129, veg: true, desc: 'Oreo cheesecake slice', badge: 'Fan Fav' },
+                    { name: 'Blueberry', price: 129, veg: true, desc: 'Blueberry cheesecake' }
+                ]
+            },
+            'Premium Cheese Cakes': {
+                items: [
+                    { name: 'Ferrero Rocher', price: 169, veg: true, desc: 'Ferrero Rocher premium', badge: 'Premium' },
+                    { name: 'Pistachio Kunafa', price: 169, veg: true, desc: 'Pistachio kunafa fusion', badge: 'Special' },
+                    { name: 'Rafello', price: 169, veg: true, desc: 'Coconut Rafello cheese' },
+                    { name: 'San Sebastian', price: 169, veg: true, desc: 'Spanish style cheesecake' },
+                    { name: 'Lotus Biscoff', price: 169, veg: true, desc: 'Lotus biscoff flavor', badge: 'Fan Fav' }
+                ]
+            },
+            'Tres Leches': {
+                items: [
+                    { name: 'Original (Vanilla)', price: 159, veg: true, desc: 'Classic tres leches' },
+                    { name: 'Lotus Biscoff', price: 159, veg: true, desc: 'Lotus flavored milkcake', badge: 'Fan Fav' },
+                    { name: 'Oreo', price: 159, veg: true, desc: 'Oreo tres leches' },
+                    { name: 'Pistachio', price: 159, veg: true, desc: 'Pistachio milkcake', badge: 'Special' }
+                ]
+            },
+            'Dream Cakes': {
+                items: [
+                    { name: 'Chocolate', price: 179, veg: true, desc: 'Pure chocolate dream' },
+                    { name: 'White Chocolate', price: 179, veg: true, desc: 'Elegant white chocolate' },
+                    { name: 'Tiramisu', price: 179, veg: true, desc: 'Classic tiramisu', badge: 'Fan Fav' },
+                    { name: 'Pistachio Kunafa Chocolate', price: 199, veg: true, desc: 'Triple flavor blend', badge: 'Special' },
+                    { name: 'White Chocolate Pistachio Kunafa', price: 199, veg: true, desc: 'Premium combination', badge: 'Premium' }
+                ]
+            },
+            'Signature Cake Slices': {
+                items: [
+                    { name: 'Red Velvet', price: 129, veg: true, desc: 'Red velvet classic' },
+                    { name: 'Chocolate Truffle', price: 129, veg: true, desc: 'Truffle chocolate layer', badge: 'Fan Fav' },
+                    { name: 'Rasmalai', price: 129, veg: true, desc: 'Indian rasmalai flavor' },
+                    { name: 'White Chocolate', price: 129, veg: true, desc: 'Silky white chocolate' }
+                ]
+            },
+            'Premium Dessert': {
+                items: [
+                    { name: 'Apricot Delight', price: 199, veg: true, desc: 'Apricot infused dessert', badge: 'Special' },
+                    { name: 'Hot Chocolate Brownie', price: 199, veg: true, desc: 'Warm brownie bliss', badge: 'Fan Fav' },
+                    { name: 'Death by Chocolate', price: 199, veg: true, desc: 'Ultimate chocolate lovers', badge: 'Premium' }
+                ]
+            },
+            'Appetizers - Veg': {
+                items: [
+                    { name: 'French Fries', price: 129, veg: true, desc: 'Crispy golden fries' },
+                    { name: 'Peri Peri Fries', price: 139, veg: true, desc: 'Spicy peri-peri fries', badge: 'Special' },
+                    { name: 'Veg Fingers', price: 189, veg: true, desc: 'Crispy vegetable fingers' },
+                    { name: 'Onion Rings', price: 189, veg: true, desc: 'Golden onion rings' },
+                    { name: 'Garlic Bread', price: 199, veg: true, desc: 'Crispy garlic toasted', badge: 'Fan Fav' }
+                ]
+            },
+            'Appetizers - Non Veg': {
+                items: [
+                    { name: 'Chicken Fingers', price: 199, veg: false, desc: 'Tender chicken fingers' },
+                    { name: 'Chicken Nuggets', price: 199, veg: false, desc: 'Crispy nuggets', badge: 'Fan Fav' },
+                    { name: 'Chicken Pops', price: 199, veg: false, desc: 'Bite-sized chicken' },
+                    { name: 'Chicken Wings', price: 249, veg: false, desc: 'Spicy chicken wings', badge: 'Special' }
+                ]
+            },
+            'Pizza': {
+                items: [
+                    { name: 'Veg Margerita', price: 199, veg: true, desc: 'Classic vegetarian pizza', badge: 'Fan Fav' },
+                    { name: 'Veggie Delight', price: 239, veg: true, desc: 'Loaded vegetable pizza' },
+                    { name: 'Corn Overload', price: 239, veg: true, desc: 'Corn topped pizza', badge: 'Special' },
+                    { name: 'Tandoori Paneer', price: 259, veg: true, desc: 'Tandoori paneer pizza' },
+                    { name: 'Mushroom', price: 259, veg: true, desc: 'Mushroom lovers pizza' },
+                    { name: 'Chicken Supreme', price: 259, veg: false, desc: 'Premium chicken pizza', badge: 'Fan Fav' },
+                    { name: 'Chicken Tikka', price: 259, veg: false, desc: 'Tandoori chicken pizza' },
+                    { name: 'Tandoori Chicken', price: 259, veg: false, desc: 'Spiced tandoori chicken' },
+                    { name: 'Barbeque Chicken', price: 259, veg: false, desc: 'Smoky BBQ chicken', badge: 'Special' },
+                    { name: 'Chicken Chettinadu', price: 259, veg: false, desc: 'South Indian spice pizza', badge: 'Premium' }
+                ]
+            },
+            'Pasta': {
+                items: [
+                    { name: 'Veg Alfredo', price: 199, veg: true, desc: 'Creamy alfredo pasta' },
+                    { name: 'Veg Red Sauce', price: 199, veg: true, desc: 'Vegetable red sauce', badge: 'Fan Fav' },
+                    { name: 'Non Veg Alfredo', price: 199, veg: false, desc: 'Chicken alfredo pasta' },
+                    { name: 'Non Veg Red Sauce', price: 249, veg: false, desc: 'Chicken red sauce', badge: 'Special' }
+                ]
+            },
+            'Burger': {
+                items: [
+                    { name: 'Veg & Cheese', price: 149, veg: true, desc: 'Vegetable cheese burger' },
+                    { name: 'Paneer & Cheese', price: 179, veg: true, desc: 'Paneer cheese burger', badge: 'Fan Fav' },
+                    { name: 'Chicken & Cheese', price: 179, veg: false, desc: 'Chicken cheese burger' },
+                    { name: 'Chicken Jumbo', price: 199, veg: false, desc: 'Jumbo chicken burger', badge: 'Premium' }
+                ]
+            },
+            'Sandwich': {
+                items: [
+                    { name: 'Veg and Cheese', price: 149, veg: true, desc: 'Vegetable cheese sandwich' },
+                    { name: 'Paneer Tikka', price: 179, veg: true, desc: 'Paneer tikka sandwich', badge: 'Fan Fav' },
+                    { name: 'Tandoori Chicken', price: 179, veg: false, desc: 'Spiced chicken sandwich' },
+                    { name: 'Chicken and Cheese', price: 179, veg: false, desc: 'Chicken cheese combo' },
+                    { name: 'Chicken Tikka', price: 179, veg: false, desc: 'Tandoori chicken tikka', badge: 'Special' }
+                ]
+            },
+            'Loaded Fries': {
+                items: [
+                    { name: 'Paneer Loaded', price: 249, veg: true, desc: 'Paneer topped fries', badge: 'Fan Fav' },
+                    { name: 'Chicken Loaded', price: 249, veg: false, desc: 'Chicken topped fries', badge: 'Special' }
+                ]
+            },
+            'Thickshakes': {
+                items: [
+                    { name: 'Vanilla', price: 169, veg: true, desc: 'Creamy vanilla shake' },
+                    { name: 'Oreo', price: 169, veg: true, desc: 'Oreo cookie shake', badge: 'Fan Fav' },
+                    { name: 'Strawberry', price: 169, veg: true, desc: 'Fresh strawberry shake' },
+                    { name: 'Chocolate', price: 169, veg: true, desc: 'Rich chocolate shake' },
+                    { name: 'KitKat', price: 169, veg: true, desc: 'KitKat chocolate shake', badge: 'Special' },
+                    { name: 'Coffee Love', price: 169, veg: true, desc: 'Coffee shake' }
+                ]
+            },
+            'Mocktails': {
+                items: [
+                    { name: 'Virgin Mojito', price: 99, veg: true, desc: 'Refreshing mojito' },
+                    { name: 'Strawberry', price: 99, veg: true, desc: 'Fresh strawberry mocktail' },
+                    { name: 'Watermelon', price: 89, veg: true, desc: 'Watermelon refresher', badge: 'Fan Fav' },
+                    { name: 'Passion Fruit', price: 99, veg: true, desc: 'Tropical passion fruit' },
+                    { name: 'Cotton Candy', price: 89, veg: true, desc: 'Sweet cotton candy', badge: 'Special' },
+                    { name: 'Spicy Guava', price: 99, veg: true, desc: 'Spiced guava mocktail' }
+                ]
+            },
+            'Premium Shakes': {
+                items: [
+                    { name: 'Kinder Bueno', price: 199, veg: true, desc: 'Kinder Bueno premium', badge: 'Premium' },
+                    { name: 'Ferrero Rocher', price: 199, veg: true, desc: 'Ferrero Rocher shake', badge: 'Special' },
+                    { name: 'Brownie Delight', price: 199, veg: true, desc: 'Brownie chocolate shake', badge: 'Fan Fav' },
+                    { name: 'Snickers Shake', price: 199, veg: true, desc: 'Snickers chocolate shake' },
+                    { name: 'Crunchie Shake', price: 199, veg: true, desc: 'Crunchie candy shake' }
+                ]
+            },
+            'Falooda': {
+                items: [
+                    { name: 'Mango', price: 149, veg: true, desc: 'Mango falooda' },
+                    { name: 'Kulfi', price: 149, veg: true, desc: 'Traditional kulfi falooda', badge: 'Fan Fav' },
+                    { name: 'Rose', price: 149, veg: true, desc: 'Rose flavored falooda', badge: 'Special' },
+                    { name: 'Strawberry', price: 149, veg: true, desc: 'Strawberry falooda' }
+                ]
+            },
+            'Beverages': {
+                items: [
+                    { name: 'Water Bottle', price: 20, veg: true, desc: 'Mineral water' },
+                    { name: 'Coke Tin', price: 40, veg: true, desc: 'Coca Cola' },
+                    { name: 'Thumbsup Tin', price: 40, veg: true, desc: 'Thumbs Up' },
+                    { name: 'Diet Coke Tin', price: 40, veg: true, desc: 'Diet Coca Cola' }
+                ]
+            }
+        };
+
+        const reviews = [
+            {
+                stars: 5,
+                quote: "The pizza had an amazing crust and toppings, cheese and mayo were simply fantastic. The cheesecake just melted in our mouth.",
+                author: "Bejjugam Madhuri",
+                date: "4 months ago"
+            },
+            {
+                stars: 5,
+                quote: "The crust was perfectly baked — crisp on the outside yet soft inside. Toppings were generous and colourful.",
+                author: "Naveen Kumar",
+                date: "5 months ago"
+            },
+            {
+                stars: 5,
+                quote: "Tried the Pistachio Kunafa Chocolate Dream Cake — pure indulgence! Rich, creamy and perfectly balanced. Worth every bite!",
+                author: "Deepu",
+                date: "5 months ago"
+            },
+            {
+                stars: 5,
+                quote: "Full of cheese and best quality. Food was fresh and service very quick!",
+                author: "Happy Customer",
+                date: "3 months ago"
+            },
+            {
+                stars: 5,
+                quote: "Food: 5 · Service: 5 · Atmosphere: 5. Wait under 10 minutes. Absolutely loved it!",
+                author: "Saketh Chittaluri",
+                date: "2 days ago"
+            }
+        ];
+
+        // ==================== RENDER FUNCTIONS ==================== 
+        function renderMenu() {
+            const menuTabs = document.getElementById('menuTabs');
+            const menuContent = document.getElementById('menuContent');
+            
+            let tabsHTML = '';
+            let contentHTML = '';
+            let isFirst = true;
+
+            for (const [category, data] of Object.entries(menuData)) {
+                const categoryId = category.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                
+                // Tab
+                tabsHTML += `<button class="menu-tab ${isFirst ? 'active' : ''}" data-category="${categoryId}">${category}</button>`;
+                
+                // Content
+                contentHTML += `<div class="tab-content ${isFirst ? 'active' : ''}" id="tab-${categoryId}">
+                    <div class="menu-items">`;
+                
+                data.items.forEach(item => {
+                    const vegClass = item.veg ? 'veg' : 'non-veg';
+                    const vegDot = item.veg ? '🟢' : '🔴';
+                    const badge = item.badge ? `<div class="menu-item-badge">${item.badge}</div>` : '';
+                    
+                    contentHTML += `
+                        <div class="menu-item fade-in">
+                            <div class="menu-item-header">
+                                <div>
+                                    <div class="menu-item-name">
+                                        <span class="veg-dot ${vegClass}"></span>
+                                        ${item.name}
+                                    </div>
+                                    <div class="menu-item-desc">${item.desc}</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="menu-item-price">₹${item.price}</div>
+                                ${badge}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                contentHTML += `</div></div>`;
+                isFirst = false;
+            }
+            
+            menuTabs.innerHTML = tabsHTML;
+            menuContent.innerHTML = contentHTML;
+
+            // Add tab click handlers
+            document.querySelectorAll('.menu-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    const categoryId = tab.getAttribute('data-category');
+                    const newContent = document.getElementById(`tab-${categoryId}`);
+                    newContent.classList.add('active');
+                    
+                    // Make all menu items in the new tab visible with animation
+                    newContent.querySelectorAll('.fade-in').forEach(element => {
+                        element.classList.add('visible');
+                    });
+                });
+            });
+        }
+
+        function renderSpecials() {
+            const specials = [
+                { icon: '🍫', name: "Dubai's Viral Pistachio Kunafa Chocolate Bar", price: 349 },
+                { icon: '🫓', name: "Cravings Special Kunafa", price: 299 },
+                { icon: '🥤', name: "Kinder Bueno Premium Shake", price: 199 },
+                { icon: '🎂', name: "Pistachio Kunafa Chocolate Dream Cake", price: 199 }
+            ];
+
+            const specialsGrid = document.getElementById('specialsGrid');
+            specialsGrid.innerHTML = specials.map(special => `
+                <div class="special-card fade-in visible">
+                    <div class="special-icon">${special.icon}</div>
+                    <div class="special-name">${special.name}</div>
+                    <div class="special-price">₹${special.price}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderReviews() {
+            const reviewsGrid = document.getElementById('reviewsGrid');
+            reviewsGrid.innerHTML = reviews.map(review => `
+                <div class="review-card fade-in">
+                    <div class="review-stars">${'★'.repeat(review.stars)}</div>
+                    <div class="review-quote">"${review.quote}"</div>
+                    <div class="review-author">— ${review.author}</div>
+                    <div class="review-date">${review.date}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderContact() {
+            const contactInfo = document.getElementById('contactInfo');
+            const contacts = [
+                { icon: '📞', label: 'Phone', value: '<a href="tel:+917636050350">+91 76360 50350</a>' },
+                { icon: '💬', label: 'WhatsApp Orders', value: '<a href="https://wa.me/917050950930">+91 97050 50930</a>' },
+                { icon: '📍', label: 'Location', value: '3-12-30/A, Ganesh Nagar, Ramanthapur, Hyderabad – 500013' },
+                { icon: '⏰', label: 'Hours', value: 'Open Daily · 11 AM – 11 PM' },
+                { icon: '📸', label: 'Instagram', value: '<a href="https://instagram.com/cravings_hyd">@cravings_hyd</a>' },
+                { icon: '🛵', label: 'Delivery', value: 'Free delivery below 3 KM' },
+                { icon: '🎉', label: 'Party Orders', value: 'Undertaken – Call for details' }
+            ];
+
+            contactInfo.innerHTML = contacts.map(contact => `
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">${contact.icon}</div>
+                    <div class="contact-item-text">
+                        <div class="contact-item-label">${contact.label}</div>
+                        <div class="contact-item-value">${contact.value}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==================== FORM HANDLING ==================== 
+        document.getElementById('enquiryForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            alert(`Thank you, ${name}! Your enquiry has been received. We'll contact you at ${phone} soon.`);
+            e.target.reset();
+        });
+
+        // ==================== MOBILE MENU ==================== 
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ==================== SMOOTH SCROLL ANIMATIONS ==================== 
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // ==================== INITIALIZATION ==================== 
+        renderMenu();
+        renderSpecials();
+        renderReviews();
+        renderContact();
+    </script>
+</body>
+</html>
